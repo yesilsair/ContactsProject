@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Anasayfa";
+}
+@model IEnumerable<Rehber.Models.Recorded>
+
+
+
+
+<div class="row">
+     
+
+    <div class="form-group">
+        <div class="col-md-10"><br />
+            <h2>Kişilerinizi içeri aktaralım</h2>
+            <br /> 
+            <button class="Upload" id="FileSelect" value="Dosya Seç">Dosya Seç</button>
+        </div>
+    </div>
+    <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="SendData">
+        <input style="display:none;" type="file" id="FileArea" name="files" multiple />
+        <br /><br />
+        <div class="form-group">
+            <div style="display:none;" id="UploadBtn" class="col-md-10">
+                <input type="submit" class="Upload" value="Yükle" />
+            </div>
+            <div class="col-md-10 hide">
+                <input type="submit" class="Upload" value="Yükle" />
+            </div>
+        </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+
+        $(document).on("click", "#FileSelect", function () {
+            $("#FileArea").click();
+           
+        });
+
+        $('#FileArea').on('change', function () {
+            var fileReader = new FileReader();
+            fileReader.onload = function () {
+                var data = fileReader.result;
+                $("#FileSelect").hide();
+                $("#UploadBtn").fadeIn();
+                
+            };
+            fileReader.readAsDataURL($('#FileArea').prop('files')[0]);
+        });
+
+    </script>
+    
+</div>

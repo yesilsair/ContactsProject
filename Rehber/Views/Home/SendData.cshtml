@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Rehber.Models.Recorded>
+<style type="text/css">
+    .Kayit:hover {
+        background: url("http://demo.marcofolio.net/iphone_contact/images/hover.png");
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<div id="WhereAreYouNow">
+    <div class="container">
+        <h2>Kişiler</h2>
+    </div>
+    <div class="container">
+        @foreach (var item in Model)
+        {
+            <div data-id="@item.ID" class="row Kayit">
+                <div class="col-md-3 col-xs-6">
+                    <b class="ad" data-nameid="@item.ID">@item.Name </b>
+                </div>
+                <div data-id="@item.ID" class="telefon col-md-3 col-xs-6">
+                    @item.Number
+                </div>
+            </div>
+        }
+
+
+
+    </div>
+
+</div>
+
+  <div class="modal fade" id="myModal" role="dialog"> <div class="modal-dialog">  
+    <div class="modal-content"> <div class="modal-header"> 
+        <button type="button" class="close" data-dismiss="modal">&times;</button> 
+        <h4 class="modal-title">Detay</h4> </div> <div style="width:100%;height:100px;" class="modal-body">
+ 
+    <span style="font-size:16px;font-weight:600" class="FrontName"></span>
+    <span class="FrontPhone"></span>
+</div> <div class="modal-footer"> 
+    <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button> </div> </div> </div> </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+
+    $(document).on("click", ".Kayit", function () {
+        var id = $(this).attr("data-id");
+        console.log(id);
+        $(".FrontName").html($(".ad[data-nameid='" + id + "']").html());
+        $(".FrontPhone").html($(".telefon[data-id='" + id + "']").html());
+        $("#myModal").modal("show");
+    });
+
+    setTimeout(function () {
+
+        if ($(".ad").html() == "Bir Hata Oluştu ") {
+            $("#WhereAreYouNow").html("Bir Hata Oluştu");
+        }
+    }, 500)
+
+</script>
+
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
